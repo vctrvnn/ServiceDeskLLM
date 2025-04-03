@@ -28,5 +28,23 @@ services:
     ports:
       - "8001:8000"
 
+  telegram_controller:
+    image: telegram_controller:test
+    build:
+      context: .
+      dockerfile: ./src/services/TelegramService/Dockerfile
+    container_name: telegram_controller
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - memory_postgres
+      - memory_controller
+    environment:
+      TELEGRAM_BOT_TOKEN: "${TELEGRAM_BOT_TOKEN}"
+      MEMORY_SERVICE_URL: "http://memory_controller:8000"
+    ports:
+      - "8002:8002"
+
 volumes:
   postgres_data:
