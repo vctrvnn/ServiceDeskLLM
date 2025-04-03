@@ -15,6 +15,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   memory_controller:
+    image: memory_controller:test
     build:
       context: .
       dockerfile: ./src/services/MemoryService/Dockerfile

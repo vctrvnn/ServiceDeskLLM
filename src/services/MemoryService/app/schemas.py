@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 import datetime
 
-from app.utils import RoleEnum
+from app.utils.enum import RoleEnum
 
 
 class MessageCreateDTO(BaseModel):
