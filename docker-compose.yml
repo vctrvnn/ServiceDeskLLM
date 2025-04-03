@@ -1,0 +1,31 @@
+services:
+  memory_postgres:
+    image: postgres:15
+    container_name: memory_postgres
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  memory_controller:
+    build:
+      context: .
+      dockerfile: ./src/services/MemoryService/Dockerfile
+    container_name: memory_controller
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - memory_postgres
+    ports:
+      - "8001:8000"
+
+volumes:
+  postgres_data:
