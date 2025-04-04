@@ -18,7 +18,7 @@ ms_client = MemoryServiceClient(base_url=settings.MEMORY_SERVICE_URL)
 @dp.message(F.text)
 async def cmd_start(message: Message, ms_client: MemoryServiceClient = ms_client):
     try:
-        ms_response = await ms_client.create_message(
+        memory_service_response = await ms_client.create_message(
             data=MessageCreateDTO(
                 dialog_id=message.from_user.id,
                 user_id=message.from_user.id,
@@ -26,7 +26,11 @@ async def cmd_start(message: Message, ms_client: MemoryServiceClient = ms_client
                 role=RoleEnum.USER,
             )
         )
-        await message.answer("Сообщение записано в базу данных!")
+
+        # ai_service_response
+        await message.answer(
+            f"Сообщение записано в базу данных!\n{memory_service_response}"
+        )  # <-- ai_service_response
     except Exception as e:
         logger.exception("Ошибка при сохранении сообщения в MemoryService")
         await message.answer("Произошла ошибка при сохранении сообщения.")

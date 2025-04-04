@@ -1,6 +1,6 @@
 import httpx
 from app.utils.logger import logger
-from app.schemas import MessageCreateDTO, MessageReadDTO
+from app.schemas import MessageCreateDTO
 
 
 class MemoryServiceClient:
@@ -15,4 +15,4 @@ class MemoryServiceClient:
         logger.info(
             f"Успешно сохранили сообщение пользователя {data.user_id} в MemoryService."
         )
-        return MessageReadDTO.model_validate(response.json())
+        return response.json()

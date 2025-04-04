@@ -1,5 +1,3 @@
 from common.enum import RoleEnum
 
-__all__ = (
-    RoleEnum
-)
+__all__ = RoleEnum

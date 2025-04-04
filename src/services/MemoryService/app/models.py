@@ -3,7 +3,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import text
 
 from app.database import Base
-from app.common.enum import RoleEnum # proxy import from --> src/services/common
+from app.common.enum import RoleEnum  # proxy import from --> src/services/common
 
 import datetime
 
