@@ -22,6 +22,7 @@ RUN poetry install --no-root
 WORKDIR /service
 
 COPY src/services/TelegramService/app /service/app
+COPY src/services/common /service/app/common
 COPY src/services/TelegramService/entrypoint.sh /service/
 
 RUN chmod +x /service/entrypoint.sh && \

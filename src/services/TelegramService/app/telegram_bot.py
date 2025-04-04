@@ -5,6 +5,7 @@ from aiogram.types import Message
 from app.config import settings
 from app.clients.memory_service_client import MemoryServiceClient
 from app.schemas import MessageCreateDTO
+from app.common.enum import RoleEnum
 from app.config import settings
 from app.utils.logger import logger
 
@@ -22,7 +23,7 @@ async def cmd_start(message: Message, ms_client: MemoryServiceClient = ms_client
                 dialog_id=message.from_user.id,
                 user_id=message.from_user.id,
                 message_content=message.text,
-                role="user",
+                role=RoleEnum.USER,
             )
         )
         await message.answer("Сообщение записано в базу данных!")
@@ -30,34 +31,6 @@ async def cmd_start(message: Message, ms_client: MemoryServiceClient = ms_client
         logger.exception("Ошибка при сохранении сообщения в MemoryService")
         await message.answer("Произошла ошибка при сохранении сообщения.")
         return
-
-
-# @dp.message(Text())  # Хендлер на любое текстовое сообщение
-# async def on_text_message(message: Message):
-#     user_id = message.from_user.id
-#     text = message.text
-
-#     # Отправляем в MemoryService (create_message)
-#     try:
-#         async with httpx.AsyncClient() as client:
-#             response = await client.post(
-#                 url=f"{settings.MEMORY_SERVICE_URL}/memory/create_message",
-#                 json={
-#                     "dialog_id": 123,  # Пример, под вашу логику
-#                     "user_id": user_id,
-#                     "role": "USER",
-#                     "message_content": text,
-#                 },
-#             )
-#             response.raise_for_status()
-#         logger.info(f"Сообщение пользователя {user_id} сохранено в MemoryService.")
-#     except Exception as e:
-#         logger.exception("Ошибка при сохранении сообщения в MemoryService")
-#         await message.answer("Произошла ошибка при сохранении сообщения.")
-#         return
-
-#     # Отвечаем пользователю
-#     await message.answer(f"Получено сообщение: <b>{text}</b>")
 
 
 def run_long_polling_bot():

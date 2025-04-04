@@ -22,6 +22,7 @@ RUN poetry install --no-root
 WORKDIR /service
 
 COPY src/services/MemoryService/app /service/app
+COPY src/services/common /service/app/common
 COPY src/services/MemoryService/entrypoint.sh /service/
 COPY src/services/MemoryService/alembic.ini /service/
 
